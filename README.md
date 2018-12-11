@@ -1,10 +1,10 @@
 # MCMC_Mini_Project
-Description
+## Description
 
 The  core  of  the  code  is  formed  of  the  classes MCMC, Schedule, Experiment,  and MultiExperiments. MCMC models the Markov chain and allows to draw samples with either Metropolis-Hastings or Glauber-dynamics.   It  is  also  used  to  randomly  draw X and W and  to  compute  the  error e(x_est,X).Schedule returns values of  β for a given number N of time steps and a specified cooling strategy. Experiment runs a MCMC experiment with a given set of parameters (n,α,N, cooling schedule) and returns the final error and other statistics.MultiExperiments facilitates running multiple experiments to compare different parameter settings and estimate the mean of the error and its standard deviation. These classes can be found in the files - schedule.py, mcmc.py, experiment.py. The code also contains utils.py which has functions for plotting and saving.
 
 
-Dependencies:
+## Dependencies:
 
 The code has following dependencies to generate the plots:
 
@@ -17,7 +17,7 @@ https://plot.ly/python/static-image-export/
 
 
 
-Generating Results:
+## Generating Results:
 
 The code is divided into following main ipython files to get different results
 
