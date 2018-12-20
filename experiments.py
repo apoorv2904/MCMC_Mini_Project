@@ -27,6 +27,9 @@ class Experiment:
         self.e_v = np.zeros(1)       # error vector
         self.b_v = b_v               # beta vector
 
+    def set_observations( self, Y, W ):
+        self.mcmc.set_observations( Y, W )
+
     def run(self):
         raise NotImplementedError("To implement in subsclasses")
         
@@ -107,14 +110,33 @@ class StandardExperiment(Experiment):
         self.s_v = np.zeros(N + 1)       # acceptance result vector
         self.e_v = np.zeros(N + 1)       # error vector
 
+        self.h_min = 10000.0                   # minimum energy explored
+        self.x_h_min = np.zeros((1, self.n ))         # output corresponding to  minimum energy
     def run(self):
         self.x_v[0], self.h_v[0], self.a_v[0], self.s_v[0] = self.mcmc.get_initial_state()
         self.e_v[0] = self.mcmc.error(self.x_v[0])
         self.mcmc.set_beta(self.b_v[0])
+        self.h_min = self.h_v[0]
+        self.x_h_min = self.x_v[0]
+
         for i in range(1, self.N + 1):
+            if( self.h_min <= 1e-10 ):
+                self.h_v = self.h_v[0:i]
+                self.a_v = self.a_v[0:i]
+                self.s_v = self.s_v[0:i]
+                self.e_v = self.e_v[0:i]
+                self.x_v = self.x_v[0:i]
+                
+                print( 'Reached this condition' )
+                break
+                
             self.x_v[i], self.h_v[i], self.a_v[i], self.s_v[i] = self.mcmc.draw_sample(
                 self.x_v[i-1])
             self.e_v[i] = self.mcmc.error(self.x_v[i])
+            if self.h_v[i] < self.h_min:
+                self.h_min = self.h_v[i]
+                self.x_h_min = self.h_v[i]
+                
             if i < self.N and self.b_v[i] != self.b_v[i-1]:
                 self.mcmc.set_beta(self.b_v[i])
                 #print( 'Setting beta to %.2f, %.2f' %(self.b_v[i], self.mcmc.beta))
@@ -139,14 +161,33 @@ class LeanExperiment(Experiment):
         self.s_v = np.zeros(N + 1)       # acceptance result vector
         self.e_v = np.zeros(N + 1)       # error vector
 
+        self.h_min = 10000.0                   # minimum energy explored
+        self.x_h_min = np.zeros((1, self.n ))         # output corresponding to  minimum energy
+        
     def run(self):
         self.x_v[0], self.h_v[0], self.a_v[0], self.s_v[0] = self.mcmc.get_initial_state()
         self.e_v[0] = self.mcmc.error(self.x_v[0])
         self.mcmc.set_beta(self.b_v[0])
+        self.h_min = self.h_v[0]
+        self.x_h_min = self.x_v[0]
+
         for i in range(1, self.N + 1):
+            if( self.h_min <= 1e-10 ):
+                self.h_v = self.h_v[0:i]
+                self.a_v = self.a_v[0:i]
+                self.s_v = self.s_v[0:i]
+                self.e_v = self.e_v[0:i]
+                print( 'Reached this condition' )
+
+                break
             self.x_v[0], self.h_v[i], self.a_v[i], self.s_v[i] = self.mcmc.draw_sample(
                 self.x_v[0])
             self.e_v[i] = self.mcmc.error(self.x_v[0])
+            
+            if self.h_v[i] < self.h_min:
+                self.h_min = self.h_v[i]
+                self.x_h_min = self.x_v[0]
+            
             if i < self.N and self.b_v[i] != self.b_v[i-1]:
                 self.mcmc.set_beta(self.b_v[i])
                 #print( 'Setting beta to %.2f, %.2f' %(self.b_v[i], self.mcmc.beta))

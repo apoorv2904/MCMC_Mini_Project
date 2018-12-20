@@ -18,6 +18,14 @@ class MCMC:
         self.X = self.random_vector()
         self.Y = self.get_y(self.X)
 
+    def set_observations(self, Y, W ):
+        
+        self.n = W.shape[1]
+        self.m = W.shape[0]
+        self.Y = Y
+        self.W = W
+        self.X = self.random_vector()
+        
     def draw_sample(self, x):
         return self.sampler(self, x)
 

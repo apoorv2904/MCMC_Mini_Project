@@ -197,11 +197,12 @@ def violinplot_final_errors( schedule_names, experiment_outputs, title='', fsave
         data.append(trace)
     
     
-    layout = go.Layout( autosize=False, width=1200, height=800,
-                       margin=go.layout.Margin( l=90, r=100, b=150, t=150, pad=4 ),
+    
+    layout = go.Layout( autosize=False, width=900, height=600,
+                       margin=go.layout.Margin( l=60, r=75, b=100, t=100, pad=4 ),
                        title=title, showlegend=True, 
                        font = dict( color = "black",
-                                   size = 18),
+                                   size = 10),
                        yaxis=dict(title='Error'),
                        xaxis=dict(title=x_axis))
     fig = Figure(data, layout)
@@ -230,11 +231,11 @@ def violinplot_min_energy_errors( schedule_names, experiment_outputs, title='', 
             }
         data.append(trace)
     
-    layout = go.Layout( autosize=False, width=1200, height=800,
-                       margin=go.layout.Margin( l=90, r=100, b=150, t=150, pad=4 ),
+    layout = go.Layout( autosize=False, width=900, height=600,
+                       margin=go.layout.Margin( l=60, r=75, b=100, t=100, pad=4 ),
                        title=title, showlegend=True, 
                        font = dict( color = "black",
-                                   size = 18),
+                                   size = 10),
                        yaxis=dict(title='Error'),
                        xaxis=dict(title=x_axis))
     fig = Figure(data, layout)
@@ -253,11 +254,12 @@ def boxplot_final_errors( schedule_names, experiment_outputs, title='', fsave=''
         data.append( Box(y=errors, boxpoints=False, name=schedule_name) )
                     
     
-    layout = go.Layout( autosize=False, width=1200, height=800,
-                       margin=go.layout.Margin( l=90, r=100, b=150, t=150, pad=4 ),
+    
+    layout = go.Layout( autosize=False, width=900, height=600,
+                       margin=go.layout.Margin( l=60, r=75, b=100, t=100, pad=4 ),
                        title=title, showlegend=True, 
                        font = dict( color = "black",
-                                   size = 18),
+                                   size = 10),
                        yaxis=dict(title='Error'),
                        xaxis=dict(title=x_axis))
     
@@ -277,11 +279,12 @@ def boxplot_min_energy_errors( schedule_names, experiment_outputs, title='', fsa
         data.append( Box(y=errors, boxpoints=False, name=schedule_name))
         
     
-    layout = go.Layout( autosize=False, width=1200, height=800,
-                       margin=go.layout.Margin( l=90, r=100, b=150, t=150, pad=4 ),
+    
+    layout = go.Layout( autosize=False, width=900, height=600,
+                       margin=go.layout.Margin( l=60, r=75, b=100, t=100, pad=4 ),
                        title=title, showlegend=True, 
                        font = dict( color = "black",
-                                   size = 18),
+                                   size = 10),
                        yaxis=dict(title='Error'),
                        xaxis=dict(title=x_axis))
     
